@@ -5,22 +5,27 @@ namespace App\Repositories;
 use App\Models\Course;
 use App\Repositories\Interfaces\CourseRepositoryInterface;
 
-class CourseRepository implements CourseRepositoryInterface {
+class CourseRepository implements CourseRepositoryInterface
+{
     protected $model;
 
-    public function __construct(Course $course) {
+    public function __construct(Course $course)
+    {
         $this->model = $course;
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         return $this->model->all();
     }
 
-    public function findById($id) {
+    public function findById($id)
+    {
         return $this->model->findOrFail($id);
     }
 
-    public function create(array $data) {
+    public function create(array $data)
+    {
         return $this->model->create($data);
     }
 
