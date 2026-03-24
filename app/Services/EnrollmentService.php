@@ -24,10 +24,10 @@ class EnrollmentService
         ]);
     }
 
-    public function withdraw($courseId)
-    {
+    public function withdraw($courseId) {
         return Enrollment::where('user_id', Auth::id())
             ->where('course_id', $courseId)
             ->delete();
     }
+    
 }
