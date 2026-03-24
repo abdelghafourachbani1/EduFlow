@@ -26,6 +26,10 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        if($request->has('interests')){
+            $user->interests()->attach($request->interests);
+        }
+
         $token = JWTAuth::fromUser($user);
 
         return response()->json([
