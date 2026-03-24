@@ -20,11 +20,10 @@ Route::middleware('auth:api')->group(function(){
 
     Route::get('/recommended-courses',[RecommendationController::class,'index']);
 
-    Route::middleware('auth:api')->group(function(){
-        Route::get('/',[WishlistController::class,'index']);
-        Route::post('/{courseId}',[WishlistController::class,'add']);
-        Route::delete('/{courseId}',[WishlistController::class,'remove']);
+    Route::prefix('wishlist')->group(function(){
+    Route::get('/',[WishlistController::class,'index']);
+    Route::post('/{courseId}',[WishlistController::class,'add']);
+    Route::delete('/{courseId}',[WishlistController::class,'remove']);
 
-    });
-    
+});
 });
