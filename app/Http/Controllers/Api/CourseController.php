@@ -32,4 +32,8 @@ class CourseController extends Controller
         $data = $request->only(['title','description','price']);
         return response()->json($this->courseService->updateCourse($id , $data));
     } 
+
+    public function destroy($id) {
+        return response()->json($this->courseService->deleteCourse($id));
+    }
 }
