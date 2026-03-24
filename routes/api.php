@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\RecommendationController;
 use App\Http\Controllers\Api\WishlistController;
+use App\Http\Controllers\Api\EnrollmentController;
 
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
@@ -21,9 +22,12 @@ Route::middleware('auth:api')->group(function(){
     Route::get('/recommended-courses',[RecommendationController::class,'index']);
 
     Route::prefix('wishlist')->group(function(){
-    Route::get('/',[WishlistController::class,'index']);
-    Route::post('/{courseId}',[WishlistController::class,'add']);
-    Route::delete('/{courseId}',[WishlistController::class,'remove']);
+        Route::get('/',[WishlistController::class,'index']);
+        Route::post('/{courseId}',[WishlistController::class,'add']);
+        Route::delete('/{courseId}',[WishlistController::class,'remove']);
+    });
 
-});
+
+    Route::post('/enroll/{courseId}',[EnrollmentController::class,'enroll']);
+    Route::delete('/enroll/{courseId}',[EnrollmentController::class,'withdraw']);
 });
