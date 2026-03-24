@@ -25,5 +25,21 @@ class PaymentController extends Controller
         ]);
     }
 
+    public function success($courseId) {
+        Enrollment::updateOrCreate([
+            'user_id' => Auth::id(),
+            'course_id' => $courseId
+        ]);
+
+        return response()->json([
+            'message' => 'Payment successful & enrolled'
+        ]);
+    }
+
+    public function cancel() {
+        return response()->json([
+            'message' => 'Payment cancelled'
+        ]);
+    }
 
 }
