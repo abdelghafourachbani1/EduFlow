@@ -14,4 +14,8 @@ class Course extends Model
         return $this->belongsToMany(User::class, 'wishlists');
     }
 
+    public function enrollments() {
+        return $this->hasMany(Enrollment::class);
+    }
+
 }
