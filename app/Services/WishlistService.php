@@ -13,4 +13,14 @@ class WishlistService {
             'course_id' => $courseId,
         ]);
     }
+
+    public function remove($courseId) {
+        return Wishlist::where('user_id', Auth::id())
+            ->where('course_id', $courseId)
+            ->delete();
+    }
+
+    public function list() {
+        return Auth::user()->wishlist;
+    }
 }
