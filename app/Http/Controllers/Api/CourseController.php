@@ -36,4 +36,11 @@ class CourseController extends Controller
     public function destroy($id) {
         return response()->json($this->courseService->deleteCourse($id));
     }
+
+    public function groups($courseId) {
+        $course = $this->courseService->getCourse($courseId);
+
+        return response()->json($course->groups()->with('enrollments.user')->get());
+    }
+
 }
