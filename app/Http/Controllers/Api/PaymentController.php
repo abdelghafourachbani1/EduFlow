@@ -6,15 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Services\StripeService;
 use App\Models\Enrollment;
 use Illuminate\Support\Facades\Auth;
+use App\Services\GroupService;
+
 
 class PaymentController extends Controller
 {
 
     protected $stripe;
+    protected $groupService;
 
-    public function __construct(StripeService $stripe) {
+    public function __construct(StripeService $stripe , GroupService $groupService) {
         $this->middlware('auth:api');
         $this->stripe = $stripe;
+        $this->groupService = $groupService;
     }
 
     public function pay($courseId) {
