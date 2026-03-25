@@ -30,13 +30,18 @@ class PaymentController extends Controller
     }
 
     public function success($courseId) {
-        Enrollment::updateOrCreate([
+        $enrollment = Enrollment::updateOrCreate([
             'user_id' => Auth::id(),
             'course_id' => $courseId
+        ],[
+            'payment_status' => 'paid'
         ]);
 
+        $group = $this->groupService->assignStudentToGroup($courseId, $enrollment->id);
+
         return response()->json([
-            'message' => 'Payment successful & enrolled'
+            'message' => 'Payment successful & enrolled',
+            'group' => $group
         ]);
     }
 
