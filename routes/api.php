@@ -20,6 +20,7 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/courses',[CourseController::class,'store']);
     Route::put('/courses/{id}',[CourseController::class,'update']);
     Route::delete('/courses/{id}',[CourseController::class,'destroy']);
+    Route::get('/courses/{courseId}/groups',[CourseController::class,'groups']);
 
     Route::get('/recommended-courses',[RecommendationController::class,'index']);
 
