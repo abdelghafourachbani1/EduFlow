@@ -10,8 +10,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
 
+    public function register(Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -29,15 +29,12 @@ class AuthController extends Controller
         if($request->has('interests')){
             $user->interests()->attach($request->interests);
         }
-
         $token = JWTAuth::fromUser($user);
-
         return response()->json([
             'message' => 'User registered successfully',
             'user' => $user,
             'token' => $token
         ]);
-
     }
 
     public function login(Request $request) {
