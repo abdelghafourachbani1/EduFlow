@@ -25,7 +25,7 @@ class AuthController extends Controller
             'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
-
+        return $user;
         if($request->has('interests')){
             $user->interests()->attach($request->interests);
         }
@@ -34,7 +34,7 @@ class AuthController extends Controller
             'message' => 'User registered successfully',
             'user' => $user,
             'token' => $token
-        ]);
+        ], 201);
     }
 
     public function login(Request $request) {
