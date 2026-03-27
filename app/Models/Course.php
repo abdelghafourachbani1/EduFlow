@@ -22,4 +22,11 @@ class Course extends Model
         return $this->hasMany(Group::class);
     }
 
+    protected $fillable = [
+        'title',
+        'description',
+        'price',
+        'teacher_id'
+    ];
+
 }
