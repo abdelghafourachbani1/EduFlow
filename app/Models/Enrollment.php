@@ -18,4 +18,10 @@ class Enrollment extends Model
         return $this->belongsTo(Group::class);
     }
 
+    protected $fillable = [
+        'user_id',
+        'course_id',
+        'payment_status'
+    ];
+
 }
