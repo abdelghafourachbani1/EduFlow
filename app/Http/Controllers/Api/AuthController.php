@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
 
     public function register(Request $request) {
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -40,7 +42,7 @@ class AuthController extends Controller
     public function login(Request $request) {
         $credentials = $request->only('email','password');
 
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = Auth::guard('api')->attempt($credentials)) {
             return response()->json([
                 'error' => 'Invalid credentials'
             ],401);
@@ -53,7 +55,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth()->logout();
+        Auth::guard('api')->logout();
 
         return response()->json([
             'message' => 'Successfully logged out'

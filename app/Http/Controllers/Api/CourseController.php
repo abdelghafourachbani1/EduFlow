@@ -12,7 +12,7 @@ class CourseController extends Controller
 
     public function __construct(CourseService $courseService) {
         $this->courseService = $courseService;
-        $this->middlware('auth:api');
+        $this->middleware('auth:api')->except(['index', 'show']);
     }
 
     public function index() {

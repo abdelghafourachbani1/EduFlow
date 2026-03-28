@@ -19,8 +19,7 @@ class CourseRepository implements CourseRepositoryInterface
         return $this->model->all();
     }
 
-    public function findById($id)
-    {
+    public function findById($id){
         return $this->model->findOrFail($id);
     }
 
