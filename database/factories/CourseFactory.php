@@ -18,7 +18,10 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence(3),
+            'description' => $this->faker->paragraph(),
+            'price' => $this->faker->numberBetween(50,200),
+            'teacher_id' => \App\Models\User::where('role','teacher')->inRandomOrder()->first()?->id
         ];
     }
 }

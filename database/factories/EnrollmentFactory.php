@@ -18,7 +18,9 @@ class EnrollmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => \App\Models\User::where('role','student')->inRandomOrder()->first()?->id,
+            'course_id' => \App\Models\Course::inRandomOrder()->first()?->id,
+            'payment_status' => $this->faker->randomElement(['pending','paid'])
         ];
     }
 }
