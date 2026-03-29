@@ -16,7 +16,7 @@ class PaymentController extends Controller
     protected $groupService;
 
     public function __construct(StripeService $stripe , GroupService $groupService) {
-        $this->middlware('auth:api');
+        $this->middleware('auth:api');
         $this->stripe = $stripe;
         $this->groupService = $groupService;
     }
@@ -47,6 +47,7 @@ class PaymentController extends Controller
 
     public function cancel() {
         return response()->json([
+            'status' => 'cancelled',
             'message' => 'Payment cancelled'
         ]);
     }

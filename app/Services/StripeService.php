@@ -9,7 +9,7 @@ use App\Models\Course;
 class StripeService {
 
     public function createCheckoutSession($courseId) {
-        Stripe::setApiKey(config('services.stripe.ssecret'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
         $course = Course::findOrFail($courseId);
 

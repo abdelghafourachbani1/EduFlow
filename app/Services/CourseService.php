@@ -21,7 +21,7 @@ class CourseService {
     }
 
     public function updateCourse($id , $data) {
-        $course = $this->courseRepo->findByTd($id);
+        $course = $this->courseRepo->findById($id);
         if(Auth::id() !== $course->teacher_id) {
             abort(403,'you are not the teacher of this course');
         }
@@ -29,7 +29,7 @@ class CourseService {
     }
 
     public function deleteCourse($id) {
-        $course = $this->courseRepo->findByTd($id);
+        $course = $this->courseRepo->findById($id);
         if (Auth::id() !== $course->teacher_id) {
             abort(403,'you are not the teacher of this course');
         }
@@ -41,6 +41,7 @@ class CourseService {
     }
 
     public function getCourse($id) {
-        return $this->courseRepo->findByTd($id);
+        return $this->courseRepo->findById($id);
     }
+    
 }

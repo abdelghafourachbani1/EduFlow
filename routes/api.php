@@ -34,6 +34,7 @@ Route::middleware('auth:api')->group(function(){
     Route::delete('/enroll/{courseId}',[EnrollmentController::class,'withdraw']);
 
     Route::post('/pay/{courseId}',[PaymentController::class,'pay']);
+});
+
     Route::get('/payment/success/{courseId}',[PaymentController::class,'success']);
     Route::get('/payment/cancel',[PaymentController::class,'cancel']);
-});

@@ -7,8 +7,7 @@ use App\Models\Enrollment;
 
 class GroupService
 {
-    public function assignStudentToGroup($courseId, $enrollmentId)
-    {
+    public function assignStudentToGroup($courseId, $enrollmentId) {
         $group = Group::where('course_id', $courseId)
             ->orderBy('group_number', 'desc')
             ->first();

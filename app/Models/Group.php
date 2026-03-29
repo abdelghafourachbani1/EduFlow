@@ -18,4 +18,9 @@ class Group extends Model
         return $this->hasMany(Enrollment::class);
     }
 
+    protected $fillable = [
+        'course_id',
+        'group_number'
+    ];
+
 }
