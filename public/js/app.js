@@ -71,3 +71,20 @@ if (loginForm) {
     })
 }
 
+//////////////////// LOUGOUT ////////////////////
+
+async function logout() {
+    const token = localStorage.getItem("token");
+
+    await fetch(`${API}/logout`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json"
+        }
+    });
+
+    localStorage.removeItem("token");
+    alert("Logged out");
+    window.location.href = "/login";
+}
