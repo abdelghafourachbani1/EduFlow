@@ -5,6 +5,7 @@ const API = "http://127.0.0.1:8000/api";
 const registerForm = document.getElementById('registerForm');
 
 if (registerForm) {
+
     registerForm.addEventListener("submit" , async (e) => {
         e.preventDefault();
 
@@ -15,13 +16,13 @@ if (registerForm) {
             role: document.getElementById("role").value,
         };
 
-        const res = await fetch('${API}/register' , {
+        const res = await fetch(`${API}/register `, {
             method : "POST",
             headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             },
-            body: stringify(data)
+            body: JSON.stringify(data)
         });
 
         const result = await res.json();
@@ -33,6 +34,40 @@ if (registerForm) {
         } else {
             alert("Error");
         }
-    });
+    }); 
+}
+
+//////////////////// LOGIN ///////////////////////
+
+const loginForm = document.getElementById('loginForm');
+
+if (loginForm) {
+    loginForm.addEventListener('submit', async(e) => {
+        e.preventDefault();
+        
+        const data = {
+            email : document.getElementById("emial").value,
+            password : document.getElementById('password').value,
+        };
+
+        const res = await fetch(`${API}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (result.token) {
+            localStorage.setItem("token", result.token);
+            alert("Login successful");
+            window.location.href = "/";
+        } else {
+            alert("Invalid credentials");
+        }
+    })
 }
 
