@@ -17,3 +17,5 @@
     <button type="submit">Register</button>
 
 </form>
+
+@endsection
