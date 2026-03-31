@@ -150,3 +150,8 @@ if (searchInput) {
         displayCourses(filtered);
     })
 }
+
+function viewCourse(id) {
+    window.location.href = `/courses/${id}`;
+}
+
