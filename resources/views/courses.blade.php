@@ -16,6 +16,7 @@
     <input placeholder="Price" id ="Price">
 
     <button type="submit">create</button>
+    <button onclick="deleteCourse(${course.id})">Delete</button>
 </form>
 
 @endsection
