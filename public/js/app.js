@@ -181,4 +181,35 @@ async function fetchCourses(id) {
     `;
 }
 
-    
+///////////////// CREATE Logic //////////// 
+
+const constForm = document.getElementById("createCourseForm");
+
+if (createForm) {
+    createForm.addEventListener("submit" , async (e) => {
+        e.preventDefault();
+
+        const token = localStorage.getItem("token");
+
+        const data = {
+            title : document.getElementById("title").value,
+            description : document.getElementById("description").value,
+            price : document.getElementById("price").value,
+        };
+
+        const res = await fetch(`${API}/courses` , {
+            method : "POST",
+            headers : {
+                "Authorization" : `Bearer ${token}`,
+                "Content-Type" : "application/json",
+                "Accept" : "application/json"
+            },
+            body : JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        alert("Course created");
+        fetchCourses();
+    });
+}
