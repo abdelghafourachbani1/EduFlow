@@ -155,3 +155,30 @@ function viewCourse(id) {
     window.location.href = `/courses/${id}`;
 }
 
+const courseDetails = document.getElementById("courseDetails");
+
+if (courseDetails) {
+    const id = window.location.pathname.split("/")[2];
+    fetchCourses(id);
+}
+
+async function fetchCourses(id) {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${API}/couurses/${id}`, {
+        headers: {
+            "Authorization" : `Bearer ${token}`,
+            "Accept" : "application/json"
+        }
+    });
+
+    const course = await res.json()
+
+    courseDetails.innerHTML = `
+        <h3>${course.title}</h3>
+        <p>${course.description}</p>
+        <p>Price: ${course.price}</p>
+    `;
+}
+
+    
