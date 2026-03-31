@@ -1,5 +1,15 @@
 const API = "http://127.0.0.1:8000/api";
 
+const token = localStorage.getItem("token");
+
+if (!token && 
+    window.location.pathname !== "/login" && 
+    window.location.pathname !== "/register"
+    ) {
+    window.location.href = "/login";
+}
+
+
 //////////////////// REGISTER //////////////////////
 
 const registerForm = document.getElementById('registerForm');
