@@ -98,3 +98,26 @@ async function logout() {
     alert("Logged out");
     window.location.href = "/login";
 }
+
+//////////////////// GET COURSES ////////////////
+
+const courseContainer = document.getElementById("courseContainer");
+
+if (courseContainer) {
+    fetchCourses();
+}
+
+async function fetchCourses() {
+    const token = localStorage.getItem("token");
+
+    const res = awaitfetch(`${API}/courses`, {
+        headers : {
+            "Authorization" : `Bearer ${token}`,
+            "Accept" : "application/json"
+        }
+    });
+
+    const courses = await res.json();
+
+    displayCourses(courses);
+}
