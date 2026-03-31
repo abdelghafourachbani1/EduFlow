@@ -119,6 +119,7 @@ async function fetchCourses() {
 
     const courses = await res.json();
 
+    window.allCourses = courses;
     displayCourses(courses);
 }
 
@@ -135,4 +136,17 @@ function displayCourses(courses) {
             </div>
         `;
     });
+}
+
+const searchInput = document.getElementById("search");
+
+if (searchInput) {
+    searchInput.addEventListener("input" , (e) => {
+        const value = e.target.value.toLowerCase();
+
+        const filtered = window.allCourses.filter(course => 
+            course.title.toLowerCase().includes(value)
+        );
+        displayCourses(filtered);
+    })
 }
