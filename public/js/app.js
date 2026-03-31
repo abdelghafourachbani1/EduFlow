@@ -121,3 +121,18 @@ async function fetchCourses() {
 
     displayCourses(courses);
 }
+
+function displayCourses(courses) {
+    courseContainer.innerHTML = ""
+
+    courses.forEach(course => {
+        courseContainer.innerHTML += `
+            <div>
+                <h3>${course.title}</h3>
+                <p>${course.description}</p>
+                <p>Price : ${course.price}</p>
+                <button onclick="viewCourse(${course.id})">View</button>
+            </div>
+        `;
+    });
+}
