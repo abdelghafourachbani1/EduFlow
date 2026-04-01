@@ -12,3 +12,5 @@ Route::view('/register', 'register');
 
 Route::view('/courses','courses');
 Route::view('/courses/{id}','course-details');
+
+Route::view('/wishlist','wishlist');
