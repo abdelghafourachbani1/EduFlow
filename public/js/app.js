@@ -181,7 +181,9 @@ async function fetchCourses(id) {
         <p>Price: ${course.price}</p>
         <button onclick="enroll(${course.id})">Enroll </button>
         <button onclick="pay(${course.id})">Pay </button>
-    <button onclick="withdraw(${course.id})">Withdraw </button>
+        <button onclick="withdraw(${course.id})">Withdraw </button>
+        <button onclick="getGroups(${course.id})">View Groups 👥</button>
+        <div id="groupsContainer"></div>
     `;
 }
 
@@ -352,3 +354,30 @@ async function pay(courseId) {
 
     window.location.href = data.url;
 }
+
+async function getGroups(courseId) {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${API}/courses/${courseId}/groups`, {
+        headers : {
+            "Authorization" : `Bearer ${token}`,
+            "Accept" : "application/json"
+        }
+    });
+
+    const groups = await res.json();
+
+    const container = document.getElementById("groupsContainer");
+
+    container.innerHTML = "";
+
+    groups.forEach(group => {
+        container.innerHTML += `
+            <div>
+                <h4>Group ${group.id}</h4>
+                <p>Students : ${group.students.length}</p>
+            </div>
+        `;
+    })
+}
+
