@@ -298,3 +298,20 @@ async function fetchWishlist() {
             </div>`;
      });
 }
+
+//////////// Remove Wishlist ////////////
+
+async function removeFromWishlist(courseId) {
+    const token = localStorage.getItem("token");
+
+    await fetch(`${API}/wishlist/${courseId}`, {
+        method : "DELETE",
+        headers : {
+            "Authorization" : `Bearer ${token}`,
+            "Accept" : "application/json"
+        }
+    });
+    fetchWishlist();
+}
+
+ 
