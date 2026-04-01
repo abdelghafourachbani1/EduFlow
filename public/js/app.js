@@ -213,3 +213,42 @@ if (createForm) {
         fetchCourses();
     });
 }
+
+////////////// DELETE Logique /////////////// 
+
+async function deleteCourse(id) {
+    const token = localStorage.getItem("token");
+
+    await fetch(`${API}/courses/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json"
+        }
+    });
+
+    alert("Deleted");
+    fetchCourses();
+}
+
+/////////////// Update Logique /////////////
+
+async function updateCourse(id) {
+    const title = prompt("New title:");
+
+    const token = localStorage.getItem("token");
+
+    await fetch(`${API}/courses/${id}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({ title })
+    });
+
+    alert("Updated");
+    fetchCourses();
+}
+
