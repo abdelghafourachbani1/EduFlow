@@ -252,3 +252,19 @@ async function updateCourse(id) {
     fetchCourses();
 }
 
+///////// Add to wishlist //////////////
+
+async function addToWishlist(courseId) {
+    const token = localStorage.getItem("token");
+
+    await fetch(`${API}/wishlist/${courseId}`, {
+        method : "POST",
+        headers : {
+            "Authorization" : `Bearer ${token}`,
+            "Accept": "application/json"
+        }
+    });
+
+    alert("added to wishlist");
+}
+
