@@ -268,3 +268,33 @@ async function addToWishlist(courseId) {
     alert("added to wishlist");
 }
 
+/////////// Fetch Wishlist //////////////
+
+const wishlistContainer = document.getElementById('wishlistContainer');
+
+if (wishlistContainer) {
+    fetchCourses();
+}
+
+async function fetchWishlist() {
+     const token = localStorage.getItem("token");
+
+     const res = await fetch(`${API}/wishlist`, {
+        headers : {
+            "Authorization" : `Bearer ${token}`,
+            "Accept" : "application/json"
+        }
+     });
+
+     const courses = await res.json();
+
+     wishlistContainer.innerHTML = "";
+
+     courses.forEach(course => {
+        wishlistContainer.innerHTML +=  
+        `<div>
+            <h3>${course.title}</h3>
+            <button onclick="removeFromWishlist(${course.id})">Remove</button>
+            </div>`;
+     });
+}
