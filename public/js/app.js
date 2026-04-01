@@ -132,6 +132,7 @@ function displayCourses(courses) {
                 <h3>${course.title}</h3>
                 <p>${course.description}</p>
                 <p>Price : ${course.price}</p>
+                <button onclick="addToWishlist(${course.id})">addToWishlist</button>
                 <button onclick="viewCourse(${course.id})">View</button>
             </div>
         `;
@@ -178,6 +179,7 @@ async function fetchCourses(id) {
         <h3>${course.title}</h3>
         <p>${course.description}</p>
         <p>Price: ${course.price}</p>
+        <button onclick="enroll(${course.id})">Enroll 🎓</button>
     `;
 }
 
@@ -314,4 +316,19 @@ async function removeFromWishlist(courseId) {
     fetchWishlist();
 }
 
- 
+/////////////// Enroll Course ///////////////
+
+async function enroll(courseId) {
+    const token = localStorage.getItem("token");
+
+    await fetch(`${API}/enroll/${courseId}`, {
+        method : "POST",
+        headers : {
+            "Authorization" : `Bearer ${token}`,
+            "Accept" : "application/"
+        }
+    });
+
+    alert("Enrolled successfully");
+
+}
