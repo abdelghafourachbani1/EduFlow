@@ -179,7 +179,9 @@ async function fetchCourses(id) {
         <h3>${course.title}</h3>
         <p>${course.description}</p>
         <p>Price: ${course.price}</p>
-        <button onclick="enroll(${course.id})">Enroll 🎓</button>
+        <button onclick="enroll(${course.id})">Enroll </button>
+        <button onclick="pay(${course.id})">Pay </button>
+    <button onclick="withdraw(${course.id})">Withdraw </button>
     `;
 }
 
@@ -331,4 +333,22 @@ async function enroll(courseId) {
 
     alert("Enrolled successfully");
 
+}
+
+/////////// pay logiq //////////////
+
+async function pay(courseId) {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${API}/pay/${courseId}`, {
+        method : "POST",
+        headers : {
+            "Authorization" : `Bearer ${token}`,
+            "Accept" : "application/json"
+        }
+    });
+
+    const data = await res.json();
+
+    window.location.href = data.url;
 }
