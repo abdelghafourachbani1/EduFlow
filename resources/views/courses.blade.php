@@ -8,7 +8,7 @@
 
 <div id="courseContainer"></div>
 
-<h3>Create Course</h3>
+<h3><button id="createCourseBtn">Create Course +</button></h3>
 
 <form id="createCourseForm">
     <input placeholder="Totle" id ="Title"><br>

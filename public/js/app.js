@@ -1,6 +1,7 @@
 const API = "http://127.0.0.1:8000/api";
 
 const token = localStorage.getItem("token");
+const userRole = localStorage.getItem("role");
 
 if (!token && 
     window.location.pathname !== "/login" && 
@@ -39,6 +40,7 @@ if (registerForm) {
 
         if (result.token) {
             localStorage.setItem("token", result.token);
+            localStorage.setItem("role", result.user.role);
             alert("registred successfuly");
             window.location.href = "/";
         } else {
@@ -73,6 +75,7 @@ if (loginForm) {
 
         if (result.token) {
             localStorage.setItem("token", result.token);
+            localStorage.setItem("role", result.user.role);
             alert("Login successful");
             window.location.href = "/";
         } else {
@@ -110,30 +113,50 @@ if (courseContainer) {
 async function fetchCourses() {
     const token = localStorage.getItem("token");
 
-    const res = awaitfetch(`${API}/courses`, {
-        headers : {
-            "Authorization" : `Bearer ${token}`,
-            "Accept" : "application/json"
+    const res = await fetch(API + "courses", {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json"
         }
     });
 
     const courses = await res.json();
 
-    window.allCourses = courses;
     displayCourses(courses);
 }
 
 function displayCourses(courses) {
-    courseContainer.innerHTML = ""
+    const container = document.getElementById("coursesContainer");
+    container.innerHTML = "";
+
+    const role = localStorage.getItem("role");
 
     courses.forEach(course => {
-        courseContainer.innerHTML += `
-            <div>
+        let buttons = "";
+
+        if (role === "teacher") {
+            buttons = `
+                <button onclick="editCourse(${course.id})">Edit </button>
+                <button onclick="deleteCourse(${course.id})">Delete </button>
+            `;
+        }
+
+        if (role === "student") {
+            buttons = `
+                <button onclick="enroll(${course.id})">Enroll </button>
+                <button onclick="pay(${course.id})">Pay </button>
+            `;
+        }
+
+        container.innerHTML += `
+            <div class="course">
                 <h3>${course.title}</h3>
                 <p>${course.description}</p>
-                <p>Price : ${course.price}</p>
-                <button onclick="addToWishlist(${course.id})">addToWishlist</button>
-                <button onclick="viewCourse(${course.id})">View</button>
+                <p>Price: ${course.price} DH</p>
+
+                <button onclick="fetchCourse(${course.id})">View </button>
+
+                ${buttons}
             </div>
         `;
     });
@@ -381,3 +404,13 @@ async function getGroups(courseId) {
     })
 }
 
+function handleRoleUI() {
+    const role = localStorage.getItem("role");
+    const createBtn = document.getElementById("createCourseBtn");
+
+    if (createBtn) {
+        if (role !== "teacher") {
+            createBtn.style.display = "none";
+        }
+    }
+}
